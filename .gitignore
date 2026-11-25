@@ -1,0 +1,21 @@
+# Entorno virtual
+venv/
+.venv/
+
+# Claves privadas
+.env
+.streamlit/secrets.toml
+
+# Archivos temporales
+__pycache__/
+*.pyc
+
+# Resultados y documentos locales
+resultados/
+documentos/
+
+# Copias de seguridad
+app_respaldo.py
+
+# Visual Studio Code
+.vscode/
