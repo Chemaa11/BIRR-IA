@@ -3,6 +3,7 @@ from chatbot import Chatbot
 from analizador import AnalizadorPDF
 from generador import GeneradorCreativo
 from io import BytesIO
+from voz import generar_voz
 import hashlib
 
 # ==========================================
@@ -303,6 +304,13 @@ elif st.session_state.pagina == "Chatbot":
 
     chatbot = st.session_state.chatbot
 
+    activar_voz = st.toggle(
+        "🔊 Activar asistente de voz",
+        value=True,
+        key="activar_voz",
+        help="Las respuestas se enviarán al servicio de voz de Google."
+    )
+
     st.divider()
 
     with st.expander(
@@ -419,6 +427,19 @@ elif st.session_state.pagina == "Chatbot":
                     )
 
                 st.markdown(respuesta)
+
+                if activar_voz:
+                    try:
+                        with st.spinner("Generando audio..."):
+                            audio = generar_voz(respuesta)
+
+                        st.audio(
+                            audio,
+                            format="audio/mpeg",
+                            autoplay=True
+                        )
+                    except Exception:
+                        st.warning("No se pudo generar la voz.")
 
             except Exception as error:
 
